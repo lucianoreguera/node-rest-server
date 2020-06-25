@@ -2,6 +2,10 @@ process.env.PORT = process.env.PORT || 3000;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+process.env.EXPIRE_TOKEN = 60 * 60 * 24 * 30;
+
+process.env.SEED_TOKEN = process.env.SEED_TOKEN || 'secret';
+
 let urlDB ;
 
 if (process.env.NODE_ENV === 'dev') {
