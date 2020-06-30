@@ -19,6 +19,25 @@ const tokenVerify = (req, res, next) => {
     });
 };
 
+const tokenImgVerify = (req, res, next) => {
+    let token = req.query.token;
+
+    jwt.verify(token, process.env.SEED_TOKEN, (error, decoded) => {
+        if (error) {
+            return res.status(401).json({
+                ok: false,
+                error: {
+                    message: 'Invalid token'
+                }
+            });
+        }
+
+        req.user = decoded.user;
+
+        next();
+    });
+};
+
 const isAdmin = (req, res, next) => {
     const user = req.user;
 
@@ -36,5 +55,6 @@ const isAdmin = (req, res, next) => {
 
 module.exports = {
     tokenVerify,
-    isAdmin
+    isAdmin,
+    tokenImgVerify
 };
